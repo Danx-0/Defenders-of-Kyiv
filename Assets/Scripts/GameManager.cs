@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] AudioSource efecSondSource;//pa los botones        
     [SerializeField] AudioClip gameOverSound;
     [SerializeField] AudioClip buttonClickSound;
-
+    [SerializeField] GameObject MenuPanel;
 
 
     // public Button MenuButton;
@@ -102,4 +102,10 @@ public class GameManager : MonoBehaviour
     {
         Application.Quit();
     }
+    public void StartGame()
+    {
+        MenuPanel.SetActive(false);
+        Time.timeScale = 1;
+    }
+
 }
