@@ -6,9 +6,11 @@ public class PlayerScript : MonoBehaviour
     public InputAction avmovement;
     public InputAction FireMov;
     public Rigidbody2D r2D;
+    public int lifes;
 
     [SerializeField] GameObject Bullet;
-    
+
+    [SerializeField] private AudioSource shootAu;
 
     private void FixedUpdate()
     {  
@@ -34,12 +36,17 @@ public class PlayerScript : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        lifes = 3;
+        shootAu = GetComponent<AudioSource>();
+        GameManager.instance.UpdateLifes(lifes);
     }
 
     // Update is called once per frame
     void Update()
     {
+        
+
+
         Vector3 lim = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
         float x = Mathf.Clamp(transform.position.x, -lim.x + 0.5f, lim.x - 0.5f);
         float y = Mathf.Clamp(transform.position.y, -lim.y + 0.5f, lim.y - 0.5f);
@@ -48,11 +55,25 @@ public class PlayerScript : MonoBehaviour
 
         if (FireMov.WasPressedThisFrame()) 
         {
-           Instantiate(Bullet, transform.position, Quaternion.identity);
 
+           Instantiate(Bullet, transform.position, Quaternion.identity);
+           shootAu.Play();
+        }
+
+        
+    }
+    
+    public void TakeDamage()
+    {
+        lifes--;
+        GameManager.instance.UpdateLifes(lifes);   
+
+        if (lifes <= 0)
+        {
+            GameManager.instance.OpenGameOver();
+            gameObject.SetActive(false);    
         }
     }
-
 
     
 }

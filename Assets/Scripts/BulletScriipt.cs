@@ -14,8 +14,17 @@ public class BulletScriipt : MonoBehaviour
     {
         transform.position += new Vector3(0, BulletSpeed, 0) * Time.deltaTime;
     }
-//    private void OnTriggerEnter2D(Collider2D collision)
-//    {
-//        GameManager.instance.IncreaseScore(10);
-//    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+
+        if (collision.CompareTag("Enemy"))
+        {
+           GameManager.instance.IncreaseScore(10);
+
+           Destroy(collision.gameObject);
+           Destroy(gameObject);
+       
+        }
+
+    }
 }
