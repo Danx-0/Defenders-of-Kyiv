@@ -30,6 +30,14 @@ public class SpawnerScript : MonoBehaviour
      
     }
 
+    void SpawEnemy2()
+    {
+        float xRandom = Random.Range(xMin + 1, xMax + 2);
+        // Vector2 posicionSpawn = new Vector2(xRandom, ySpawn);   
+
+
+        Instantiate(enemyPrefa, new Vector3(xRandom, ySpawn, 0), Quaternion.identity);
+    }
     void SpawEnemy()
     {
         float xRandom = Random.Range(xMin + 1, xMax +2);
